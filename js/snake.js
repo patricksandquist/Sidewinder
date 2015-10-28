@@ -18,13 +18,13 @@
   };
 
   Coord.prototype.plus = function (coord2) {
-    return new Cord(this.i + coord2.i, this.j + coord2.j);
+    return new Coord(this.i + coord2.i, this.j + coord2.j);
   };
 
   var Board = Game.Board = function (dim) {
     this.dim = dim;
     this.snake = new Snake();
-    this.apple = new Apple();
+    // this.apple = new Apple();
   };
 
   Board.BLANK_SYMBOL = ".";
@@ -48,12 +48,14 @@
     this.snake.segments.forEach(function (segment) {
       grid[segment.i][segment.j] = Snake.SYMBOL;
     });
+
+    return grid;
   };
 
   var Snake = Game.Snake = function () {
     // A Snake class that stores the current direction and an array of segments
     this.dir = "N";
-    this.segments = [new Cord(5, 5)];
+    this.segments = [new Coord(5, 5)];
   };
 
   Snake.SYMBOL = "S";
@@ -74,6 +76,9 @@
   Snake.prototype.move = function () {
     // move snake forward
     this.segments.push(this.head().plus(Snake.DIFFS[this.dir]));
+
+    // take one off of the back of the snake (front of the array)
+    this.segments.shift();
   };
 
   Snake.prototype.turn = function (newDir) {
