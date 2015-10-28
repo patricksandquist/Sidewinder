@@ -6,9 +6,9 @@
   var View = Game.View = function ($el) {
     this.$el = $el;
     this.board = new Game.Board(20);
-    $(window).on("keydown", this.handleKeyEvent.bind(this));
-
+    this.setUpGrid();
     window.setInterval(this.step.bind(this), View.STEP_DELAY);
+    $(window).on("keydown", this.handleKeyEvent.bind(this));
   };
 
   View.KEYS = {
@@ -30,6 +30,36 @@
 
   View.prototype.step = function () {
     this.board.snake.move();
-    this.$el.html(this.board.render());
+    this.render();
+  };
+
+  View.prototype.render = function () {
+    this.updateClasses(this.board.snake.segments, "snake");
+    // this.updateClasses([this.board.apple.position], "apple");
+  };
+
+  View.prototype.updateClasses = function (coords, className) {
+    var $li = this.$el.find("li");
+    this.$li.filter("." + className).removeClass();
+
+    coords.forEach(function(coord){
+      var flatCoord = (coord.i * this.board.dim) + coord.j;
+      this.$li.eq(flatCoord).addClass(className);
+    }.bind(this));
+  };
+
+  View.prototype.setUpGrid = function () {
+    var output = "";
+
+    for (var i = 0; i < this.board.dim; i++) {
+      output += "<ul>";
+      for (var j = 0; j < this.board.dim; j++) {
+        output += "<li></li>";
+      }
+      output += "</ul>";
+    }
+
+    this.$el.html(output);
+    // this.$li = this.$el.find("li");
   };
 })();
