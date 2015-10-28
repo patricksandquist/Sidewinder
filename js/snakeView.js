@@ -21,8 +21,8 @@
   View.STEP_DELAY = 500;
 
   View.prototype.handleKeyEvent = function (e) {
-    if (this.KEYS[e.keyCode]) {
-      this.board.snake.turn(e.keyCode);
+    if (View.KEYS[e.keyCode]) {
+      this.board.snake.turn(View.KEYS[e.keyCode]);
     } else {
       // Other key pressed, ignore
     }
