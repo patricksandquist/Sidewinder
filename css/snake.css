@@ -47,9 +47,11 @@ li {
 }
 
 .apple {
-  background: red;
+  font-size: 20px;
+  color: #FF23EF;
 }
 
 .snake {
-  background: blue;
+  background: black;
+  border-radius: 5px;
 }

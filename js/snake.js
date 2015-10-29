@@ -28,28 +28,36 @@
 
   Snake.GROW_TURNS = 3;
 
+  Snake.prototype.initDir = function (dir) {
+    this.dir = dir;
+  };
+
   Snake.prototype.head = function () {
     // Returns the head coordinate object
     return this.segments[this.segments.length - 1];
   };
 
-  Snake.prototype.eatApple = function () {
+  Snake.prototype.eatApple = function (fast) {
     if (this.head().equals(this.board.apple.position)) {
       this.growTurns += 3;
-      this.score += 1;
+      if (fast) {
+        this.score += 2;
+      } else {
+        this.score += 1;
+      }
       return true;
     } else {
       return false;
     }
   };
 
-  Snake.prototype.move = function () {
+  Snake.prototype.move = function (fast) {
     // move snake forward
     this.segments.push(this.head().plus(Snake.DIFFS[this.dir]));
     this.turning = false;
 
     // eat an apple if it's there
-    if (this.eatApple()) {
+    if (this.eatApple(fast)) {
       this.board.apple.replace();
     }
 

@@ -5,14 +5,13 @@
 
   var View = Game.View = function ($el) {
     this.$el = $el;
-    this.board = new Game.Board(20);
+    this.board = new Game.Board(30);
     this.setUpGrid();
     this.paused = false;
+    this.started = false;
     this.step_delay = View.SLOW_DELAY;
-    this.intervalId = window.setInterval(
-      this.step.bind(this),
-      this.step_delay
-    );
+    this.render();
+
     $(window).on("keydown", this.handleKeyEvent.bind(this));
     $(window).on("keyup", this.handleKeyUpEvent.bind(this));
   };
@@ -24,10 +23,20 @@
     37: "W"
   };
 
-  View.FAST_DELAY = 100;
-  View.SLOW_DELAY = 500;
+  View.FAST_DELAY = 25;
+  View.SLOW_DELAY = 100;
 
   View.prototype.handleKeyEvent = function (e) {
+    if (!this.started && View.KEYS[e.keyCode]) {
+      this.board.snake.initDir(View.KEYS[e.keyCode]);
+      this.step();
+      this.intervalId = window.setInterval(
+        this.step.bind(this),
+        this.step_delay
+      );
+      this.started = true;
+    }
+
     if (e.keyCode == 32 && this.step_delay !== View.FAST_DELAY) {
       this.updateInterval(View.FAST_DELAY);
     }
@@ -55,7 +64,11 @@
 
   View.prototype.step = function () {
     if (!this.paused) {
-      this.board.snake.move();
+      if (this.step_delay == View.FAST_DELAY) {
+        this.board.snake.move(true);
+      } else {
+        this.board.snake.move(false);
+      }
       if (this.board.snake.dead) {
         alert("You lose!");
         window.clearInterval(this.intervalId);
@@ -83,11 +96,13 @@
   View.prototype.updateClasses = function (coords, className) {
     var $li = this.$el.find("li");
     $li.filter("." + className).removeClass();
+    $li.empty();  // delete all children
 
     coords.forEach(function (coord) {
       var flatCoord = (coord.i * this.board.dim) + coord.j;
       $li.eq(flatCoord).addClass(className);
     }.bind(this));
+    $("li.apple").replaceWith("<li class='apple'><i class='fa fa-birthday-cake'></i></li>");
   };
 
   View.prototype.setUpGrid = function () {
