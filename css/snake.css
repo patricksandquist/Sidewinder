@@ -1,4 +1,4 @@
-html, body, figure, figcaption, ul, li, h1 {
+html, body, figure, figcaption, ul, li, h1, h2 {
   margin: 0;
   padding: 0;
   border: 0;
@@ -21,7 +21,12 @@ h1 {
   margin: 30px;
 }
 
-figure {
+h2 {
+  font-size: 40px;
+  margin: 10px;
+}
+
+div.snake-board {
   display: inline-block;
   border: 2px solid black;
 }

@@ -14,6 +14,8 @@
     );
     this.segments = [center];
     this.growTurns = 0;
+    this.score = 0;
+    this.dead = false;
   };
 
   Snake.DIFFS = {
@@ -34,6 +36,7 @@
   Snake.prototype.eatApple = function () {
     if (this.head().equals(this.board.apple.position)) {
       this.growTurns += 3;
+      this.score += 1;
       return true;
     } else {
       return false;
@@ -43,8 +46,6 @@
   Snake.prototype.move = function () {
     // move snake forward
     this.segments.push(this.head().plus(Snake.DIFFS[this.dir]));
-
-    // allow turning again
     this.turning = false;
 
     // eat an apple if it's there
@@ -60,9 +61,9 @@
       this.segments.shift();
     }
 
-    // destroy snake if it eats itself
+    // destroy snake if it eats itself or hits wall
     if (!this.isValid()) {
-      this.segments = [];
+      this.dead = true;
     }
   };
 

@@ -7,6 +7,7 @@
     this.$el = $el;
     this.board = new Game.Board(20);
     this.setUpGrid();
+    this.paused = false;
     this.intervalId = window.setInterval(
       this.step.bind(this),
       View.STEP_DELAY
@@ -21,29 +22,43 @@
     37: "W"
   };
 
-  View.STEP_DELAY = 500;
+  View.STEP_DELAY = 100;
 
   View.prototype.handleKeyEvent = function (e) {
-    if (View.KEYS[e.keyCode]) {
+    if (e.keyCode == 32) {
+      // Pause/unpause the game
+      this.paused = !this.paused;
+      this.updateHeader();
+    } else if (!this.paused && View.KEYS[e.keyCode]) {
       this.board.snake.turn(View.KEYS[e.keyCode]);
-    } else {
-      // Other key pressed, ignore
     }
   };
 
   View.prototype.step = function () {
-    if (this.board.snake.segments.length > 0) {
+    if (!this.paused) {
       this.board.snake.move();
-      this.render();
-    } else {
-      alert("You lose!");
-      window.clearInterval(this.intervalId);
+      if (this.board.snake.dead) {
+        alert("You lose!");
+        window.clearInterval(this.intervalId);
+      } else {
+        this.render();
+      }
     }
   };
 
   View.prototype.render = function () {
-    this.updateClasses(this.board.snake.segments, "snake");
+    this.updateHeader();
     this.updateClasses([this.board.apple.position], "apple");
+    this.updateClasses(this.board.snake.segments, "snake");
+  };
+
+  View.prototype.updateHeader = function () {
+    var $h2 = this.$el.find("h2");
+    if (this.paused) {
+      $h2.replaceWith("<h2>Paused. Press Space to resume</h2>");
+    } else {
+      $h2.replaceWith("<h2>" + this.board.snake.score + "</h2>");
+    }
   };
 
   View.prototype.updateClasses = function (coords, className) {
@@ -57,7 +72,8 @@
   };
 
   View.prototype.setUpGrid = function () {
-    var output = "";
+    var output = "<h2>" + this.board.snake.score + "</h2>";
+    output += "<div class='snake-board'>";
 
     for (var i = 0; i < this.board.dim; i++) {
       output += "<ul>";
@@ -66,8 +82,8 @@
       }
       output += "</ul>";
     }
+    output += "</div>";
 
     this.$el.html(output);
-    // this.$li = this.$el.find("li");
   };
 })();
