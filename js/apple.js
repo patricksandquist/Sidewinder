@@ -21,7 +21,7 @@
 
   Apple.prototype.generateCoord = function () {
     // Generate a random location on the board
-    return new Coord(
+    return new Game.Coord(
       Math.floor(Math.random() * this.board.dim),
       Math.floor(Math.random() * this.board.dim)
     );

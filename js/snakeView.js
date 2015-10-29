@@ -7,7 +7,10 @@
     this.$el = $el;
     this.board = new Game.Board(20);
     this.setUpGrid();
-    window.setInterval(this.step.bind(this), View.STEP_DELAY);
+    this.intervalId = window.setInterval(
+      this.step.bind(this),
+      View.STEP_DELAY
+    );
     $(window).on("keydown", this.handleKeyEvent.bind(this));
   };
 
@@ -29,22 +32,27 @@
   };
 
   View.prototype.step = function () {
-    this.board.snake.move();
-    this.render();
+    if (this.board.snake.segments.length > 0) {
+      this.board.snake.move();
+      this.render();
+    } else {
+      alert("You lose!");
+      window.clearInterval(this.intervalId);
+    }
   };
 
   View.prototype.render = function () {
     this.updateClasses(this.board.snake.segments, "snake");
-    // this.updateClasses([this.board.apple.position], "apple");
+    this.updateClasses([this.board.apple.position], "apple");
   };
 
   View.prototype.updateClasses = function (coords, className) {
     var $li = this.$el.find("li");
-    this.$li.filter("." + className).removeClass();
+    $li.filter("." + className).removeClass();
 
-    coords.forEach(function(coord){
+    coords.forEach(function (coord) {
       var flatCoord = (coord.i * this.board.dim) + coord.j;
-      this.$li.eq(flatCoord).addClass(className);
+      $li.eq(flatCoord).addClass(className);
     }.bind(this));
   };
 
