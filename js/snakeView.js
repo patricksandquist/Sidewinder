@@ -8,11 +8,13 @@
     this.board = new Game.Board(20);
     this.setUpGrid();
     this.paused = false;
+    this.step_delay = View.SLOW_DELAY;
     this.intervalId = window.setInterval(
       this.step.bind(this),
-      View.STEP_DELAY
+      this.step_delay
     );
     $(window).on("keydown", this.handleKeyEvent.bind(this));
+    $(window).on("keyup", this.handleKeyUpEvent.bind(this));
   };
 
   View.KEYS = {
@@ -22,15 +24,32 @@
     37: "W"
   };
 
-  View.STEP_DELAY = 100;
+  View.FAST_DELAY = 100;
+  View.SLOW_DELAY = 500;
 
   View.prototype.handleKeyEvent = function (e) {
-    if (e.keyCode == 32) {
-      // Pause/unpause the game
+    if (e.keyCode == 32 && this.step_delay !== View.FAST_DELAY) {
+      this.updateInterval(View.FAST_DELAY);
+    }
+    if (e.keyCode == 80) {
+      // "P" pressed, pause/unpause the game
       this.paused = !this.paused;
       this.updateHeader();
     } else if (!this.paused && View.KEYS[e.keyCode]) {
       this.board.snake.turn(View.KEYS[e.keyCode]);
+    }
+  };
+
+  View.prototype.updateInterval = function (step_delay) {
+    window.clearInterval(this.intervalId);
+    this.step_delay = step_delay;
+    this.intervalId = window.setInterval(this.step.bind(this), step_delay);
+  };
+
+  View.prototype.handleKeyUpEvent = function (e) {
+    if (e.keyCode == 32) {
+      // "Space" pressed, lower speed
+      this.updateInterval(View.SLOW_DELAY);
     }
   };
 
