@@ -117,6 +117,7 @@
       output += "</ul>";
     }
     output += "</div>";
+    output += "<h3>(P) for pause. Hold (Space) to double your points!</h3>";
 
     this.$el.html(output);
   };

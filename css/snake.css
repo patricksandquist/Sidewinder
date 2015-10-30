@@ -17,12 +17,17 @@ body {
 }
 
 h1 {
-  font-size: 60px;
-  margin: 30px;
+  font-size: 45px;
+  margin: 15px;
 }
 
 h2 {
   font-size: 40px;
+  margin: 10px;
+}
+
+h3 {
+  font-size: 33px;
   margin: 10px;
 }
 
