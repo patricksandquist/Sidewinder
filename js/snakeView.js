@@ -23,7 +23,7 @@
     37: "W"
   };
 
-  View.FAST_DELAY = 25;
+  View.FAST_DELAY = 50;
   View.SLOW_DELAY = 100;
 
   View.prototype.handleKeyEvent = function (e) {
