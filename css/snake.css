@@ -62,3 +62,10 @@ li {
   background: black;
   border-radius: 5px;
 }
+
+div.past-scores {
+  font-size: 35px;
+  position: relative;
+  top: -688px;
+  left: -328px;
+}

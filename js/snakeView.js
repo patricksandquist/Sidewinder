@@ -10,6 +10,7 @@
     this.paused = false;
     this.started = false;
     this.step_delay = View.SLOW_DELAY;
+    this.pastScores = [];
     this.render();
 
     $(window).on("keydown", this.handleKeyEvent.bind(this));
@@ -70,12 +71,23 @@
         this.board.snake.move(false);
       }
       if (this.board.snake.dead) {
-        alert("You lose!");
+        alert("Can't have your cake and eat it too!");
         window.clearInterval(this.intervalId);
+        this.resetGame();
       } else {
         this.render();
       }
     }
+  };
+
+  View.prototype.resetGame = function () {
+    this.pastScores.push(this.board.snake.score);
+    this.board = new Game.Board(30);
+    this.setUpGrid();
+    this.paused = false;
+    this.started = false;
+    this.step_delay = View.SLOW_DELAY;
+    this.render();
   };
 
   View.prototype.render = function () {
@@ -86,11 +98,20 @@
 
   View.prototype.updateHeader = function () {
     var $h2 = this.$el.find("h2");
+    var $div = this.$el.find("div.past-scores");
+
     if (this.paused) {
-      $h2.replaceWith("<h2>Paused. Press Space to resume</h2>");
+      $h2.replaceWith("<h2>Paused. Press (P) to resume</h2>");
     } else {
       $h2.replaceWith("<h2>" + this.board.snake.score + "</h2>");
     }
+
+    var output = "<div class='past-scores'>";
+    for (i = 0; i < this.pastScores.length; i++) {
+      output += "<div class='pScore'>" + this.pastScores[i] + "</div>";
+    }
+    output += "</div>";
+    $div.replaceWith(output);
   };
 
   View.prototype.updateClasses = function (coords, className) {
@@ -118,6 +139,7 @@
     }
     output += "</div>";
     output += "<h3>(P) for pause. Hold (Space) to double your points!</h3>";
+    output += "<div class='past-scores'></div>";
 
     this.$el.html(output);
   };
