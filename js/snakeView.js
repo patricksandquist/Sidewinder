@@ -28,6 +28,7 @@
   View.SLOW_DELAY = 100;
 
   View.prototype.handleKeyEvent = function (e) {
+    e.preventDefault();
     if (!this.started && View.KEYS[e.keyCode]) {
       this.board.snake.initDir(View.KEYS[e.keyCode]);
       this.step();
