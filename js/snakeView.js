@@ -79,7 +79,6 @@
         this.board.snake.move(false);
       }
       if (this.board.snake.dead) {
-        alert("Can't have your cake and eat it too!");
         window.clearInterval(this.intervalId);
         this.resetGame();
       } else {
@@ -132,7 +131,7 @@
       var flatCoord = (coord.i * this.board.dim) + coord.j;
       $li.eq(flatCoord).addClass(className);
     }.bind(this));
-    $("li.apple").replaceWith("<li class='apple'><i class='fa fa-birthday-cake'></i></li>");
+    $("li.apple").replaceWith("<li class='apple'><i class='fa fa-circle'></i></li>");
   };
 
   View.prototype.toggleRotate = function () {
