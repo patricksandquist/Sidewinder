@@ -29,7 +29,11 @@
 
   View.prototype.handleKeyEvent = function (e) {
     e.preventDefault();
-    if (!this.started && View.KEYS[e.keyCode]) {
+    if (!this.started &&
+      !this.paused &&
+      View.KEYS[e.keyCode]) {
+      // First directional key press of the game
+      this.timeOut = window.setTimeout(this.toggleRotate.bind(this), 10000);
       this.board.snake.initDir(View.KEYS[e.keyCode]);
       this.step();
       this.intervalId = window.setInterval(
@@ -39,7 +43,10 @@
       this.started = true;
     }
 
-    if (e.keyCode == 32 && this.step_delay !== View.FAST_DELAY) {
+    if (this.started &&
+      e.keyCode == 32 &&
+      this.step_delay !== View.FAST_DELAY) {
+      // "Space" is pressed
       this.updateInterval(View.FAST_DELAY);
     }
     if (e.keyCode == 80) {
@@ -58,8 +65,8 @@
   };
 
   View.prototype.handleKeyUpEvent = function (e) {
-    if (e.keyCode == 32) {
-      // "Space" pressed, lower speed
+    if (this.started && e.keyCode == 32) {
+      // "Space" lifted, lower speed
       this.updateInterval(View.SLOW_DELAY);
     }
   };
@@ -82,6 +89,7 @@
   };
 
   View.prototype.resetGame = function () {
+    clearTimeout(this.timeOut);
     this.pastScores.push(this.board.snake.score);
     this.board = new Game.Board(30);
     this.setUpGrid();
@@ -92,7 +100,6 @@
   };
 
   View.prototype.render = function () {
-
     this.updateHeader();
     this.updateClasses([this.board.apple.position], "apple");
     this.updateClasses(this.board.snake.segments, "snake");
@@ -129,7 +136,6 @@
   };
 
   View.prototype.toggleRotate = function () {
-    // window.setTimeout(this.toggleRotate.bind(this), 14000);
     var $div = this.$el.find("div.snake-board");
     $div.toggleClass("rotateIn");
     $div.on(
@@ -140,7 +146,11 @@
 
   View.prototype.loopTransition = function ($div) {
     if ($div.hasClass("rotateIn")) {
-
+      $div.removeClass("rotateIn");
+      $div.addClass("rotateOut");
+    } else {
+      $div.removeClass("rotateOut");
+      $div.addClass("rotateIn");
     }
   };
 
@@ -160,6 +170,5 @@
     output += "<div class='past-scores'></div>";
 
     this.$el.html(output);
-    window.setTimeout(this.toggleRotate.bind(this),8000);
   };
 })();

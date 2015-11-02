@@ -34,11 +34,11 @@ h3 {
 div.snake-board {
   display: inline-block;
   border: 2px solid black;
-  transition: transform 6s ease-in-out;
+  transition: transform 10s ease-in-out;
 }
 
 div.snake-board.rotateIn {
-  transform: rotate(180deg);
+  transform: rotate(360deg);
 }
 
 div.snake-board.rotateOut {
