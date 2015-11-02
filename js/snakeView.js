@@ -92,6 +92,7 @@
   };
 
   View.prototype.render = function () {
+
     this.updateHeader();
     this.updateClasses([this.board.apple.position], "apple");
     this.updateClasses(this.board.snake.segments, "snake");
@@ -127,6 +128,22 @@
     $("li.apple").replaceWith("<li class='apple'><i class='fa fa-birthday-cake'></i></li>");
   };
 
+  View.prototype.toggleRotate = function () {
+    // window.setTimeout(this.toggleRotate.bind(this), 14000);
+    var $div = this.$el.find("div.snake-board");
+    $div.toggleClass("rotateIn");
+    $div.on(
+      'transitionend webkitTransitionEnd oTransitionEnd',
+      this.loopTransition.bind(this, $div)
+    );
+  };
+
+  View.prototype.loopTransition = function ($div) {
+    if ($div.hasClass("rotateIn")) {
+
+    }
+  };
+
   View.prototype.setUpGrid = function () {
     var output = "<h2>" + this.board.snake.score + "</h2>";
     output += "<div class='snake-board'>";
@@ -143,5 +160,6 @@
     output += "<div class='past-scores'></div>";
 
     this.$el.html(output);
+    window.setTimeout(this.toggleRotate.bind(this),8000);
   };
 })();
