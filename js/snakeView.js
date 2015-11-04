@@ -26,6 +26,7 @@
 
   View.FAST_DELAY = 50;
   View.SLOW_DELAY = 100;
+  View.SPIN_DELAY = 6000;
 
   View.prototype.handleKeyEvent = function (e) {
     e.preventDefault();
@@ -33,7 +34,7 @@
       !this.paused &&
       View.KEYS[e.keyCode]) {
       // First directional key press of the game
-      this.timeOut = window.setTimeout(this.toggleRotate.bind(this), 10000);
+      this.timeOut = window.setTimeout(this.toggleRotate.bind(this), View.SPIN_DELAY);
       this.board.snake.initDir(View.KEYS[e.keyCode]);
       this.step();
       this.intervalId = window.setInterval(
