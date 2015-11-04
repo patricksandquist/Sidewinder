@@ -109,7 +109,9 @@
     var $h2 = this.$el.find("h2");
     var $div = this.$el.find("div.past-scores");
 
-    if (this.paused) {
+    if (!this.started) {
+      $h2.replaceWith("<h2>Press any arrow key to begin!</h2>");
+    } else if (this.paused) {
       $h2.replaceWith("<h2>Paused. Press (P) to resume</h2>");
     } else {
       $h2.replaceWith("<h2>" + this.board.snake.score + "</h2>");
@@ -155,7 +157,7 @@
   };
 
   View.prototype.setUpGrid = function () {
-    var output = "<h2>Press any arrow key to begin!</h2>";
+    var output = "<h2>" + this.board.snake.score + "</h2>";
     output += "<div class='snake-board'>";
 
     for (var i = 0; i < this.board.dim; i++) {
