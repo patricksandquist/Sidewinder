@@ -155,7 +155,7 @@
   };
 
   View.prototype.setUpGrid = function () {
-    var output = "<h2>" + this.board.snake.score + "</h2>";
+    var output = "<h2>Press any arrow key to begin!</h2>";
     output += "<div class='snake-board'>";
 
     for (var i = 0; i < this.board.dim; i++) {
