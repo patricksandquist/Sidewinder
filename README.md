@@ -3,7 +3,7 @@
 Sidewinder is Snake with a big "twist"! Written in Javascript, Sidewinder takes advantage of CSS transitions to add a new dimension to Snake while maintaining it's classic root.
 
 [Live game][liveLink]
-[liveLink]: https://rawgit.com/patricksandquist/Snake/master/html/snake.html
+[liveLink]: https://rawgit.com/patricksandquist/Sidewinder/master/html/snake.html
 
 ## Features
 - Replay and score history
