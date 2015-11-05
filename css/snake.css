@@ -11,25 +11,26 @@ ul {
 }
 
 body {
-  /*font-family: 'Shadows Into Light', cursive;*/
-  font-family: 'Parisienne', cursive;
+  font-family: 'Roboto Slab', serif;
+  font-weight: 300;
   text-align: center;
-  font-weight: bold;
 }
 
 h1 {
-  font-size: 45px;
+  font-size: 30px;
   margin-top: 15px;
-  margin-bottom: -25px;
+  margin-bottom: -15px;
+  font-weight: 300;
 }
 
 h2 {
-  font-size: 40px;
+  font-size: 30px;
   margin: 10px;
 }
 
 h3 {
-  font-size: 33px;
+  font-weight: 300;
+  font-size: 30px;
   margin: 10px;
 }
 
@@ -75,15 +76,17 @@ li {
 }
 
 div.past-scores {
+  font-weight: 300;
   font-size: 35px;
   position: relative;
-  top: -728px;
-  left: -337px;
+  top: -719px;
+  left: -328px;
 }
 
 div.high-score {
+  font-weight: 300;
   font-size: 35px;
   position: relative;
-  top: -679px;
+  top: -674px;
   left: 328px;
 }
