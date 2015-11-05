@@ -11,14 +11,16 @@ ul {
 }
 
 body {
-  font-family: 'Shadows Into Light', cursive;
+  /*font-family: 'Shadows Into Light', cursive;*/
+  font-family: 'Parisienne', cursive;
   text-align: center;
   font-weight: bold;
 }
 
 h1 {
   font-size: 45px;
-  margin: 15px;
+  margin-top: 15px;
+  margin-bottom: -25px;
 }
 
 h2 {
@@ -62,7 +64,7 @@ li {
 
 .apple {
   font-size: 20px;
-  top: -5px;
+  top: -2px;
   color: #FF2323;
   position: relative;
 }
@@ -75,13 +77,13 @@ li {
 div.past-scores {
   font-size: 35px;
   position: relative;
-  top: -751px;
-  left: -328px;
+  top: -728px;
+  left: -337px;
 }
 
 div.high-score {
   font-size: 35px;
   position: relative;
-  top: -688px;
+  top: -679px;
   left: 328px;
 }
