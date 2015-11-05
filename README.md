@@ -16,4 +16,4 @@ Sidewinder is Snake with a big "twist"! Written in Javascript, Sidewinder takes 
 - Changing interval durations simulates different movements speeds
 - Delayed callbacks and CSS transitions create a difficult and surprising twist for players
 
-[logo]: ./images/logo_cropped.png
+[logo]: ./images/logo_small.png
