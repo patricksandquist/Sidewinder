@@ -24,8 +24,8 @@
     37: "W"
   };
 
-  View.FAST_DELAY = 100;
-  View.SLOW_DELAY = 200;
+  View.FAST_DELAY = 60;
+  View.SLOW_DELAY = 120;
   View.SPIN_DELAY = 6000;
 
   View.prototype.handleKeyEvent = function (e) {
