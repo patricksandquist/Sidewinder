@@ -107,7 +107,8 @@
 
   View.prototype.updateHeader = function () {
     var $h2 = this.$el.find("h2");
-    var $div = this.$el.find("div.past-scores");
+    var $psDiv = this.$el.find("div.past-scores");
+    var $hsDiv = this.$el.find("div.high-score");
 
     if (!this.started) {
       $h2.replaceWith("<h2>Press any arrow key to begin!</h2>");
@@ -117,12 +118,23 @@
       $h2.replaceWith("<h2>" + this.board.snake.score + "</h2>");
     }
 
-    var output = "<div class='past-scores'>";
+    var pastScoresHTML = "<div class='past-scores'>";
     for (i = 0; i < this.pastScores.length; i++) {
-      output += "<div class='pScore'>" + this.pastScores[i] + "</div>";
+      pastScoresHTML += "<div class='pScore'>" + this.pastScores[i] + "</div>";
     }
-    output += "</div>";
-    $div.replaceWith(output);
+    pastScoresHTML += "</div>";
+    $psDiv.replaceWith(pastScoresHTML);
+
+    highScoreHTML = "<div class='high-score'>";
+    var highScore;
+    if (this.pastScores.length === 0) {
+      highScore = 0;
+    } else {
+      highScore = Math.max.apply(null, this.pastScores);
+    }
+    highScoreHTML += "<div class='hScore'>" + highScore + "</div>";
+    highScoreHTML += "</div>";
+    $hsDiv.replaceWith(highScoreHTML);
   };
 
   View.prototype.updateClasses = function (coords, className) {
@@ -169,6 +181,7 @@
     }
     output += "</div>";
     output += "<h3>(P) for pause. Hold (Space) to double your points!</h3>";
+    output += "<div class='high-score'></div>";
     output += "<div class='past-scores'></div>";
 
     this.$el.html(output);

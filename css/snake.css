@@ -75,6 +75,13 @@ li {
 div.past-scores {
   font-size: 35px;
   position: relative;
-  top: -688px;
+  top: -751px;
   left: -328px;
+}
+
+div.high-score {
+  font-size: 35px;
+  position: relative;
+  top: -688px;
+  left: 328px;
 }
