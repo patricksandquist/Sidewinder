@@ -102,11 +102,13 @@
 
   Snake.prototype.isOccupying = function (coord) {
     // Returns true if part of the snake is on the given coordinate
+    var result = false;
     this.segments.forEach(function (segment) {
       if (segment.i === coord.i && segment.j === coord.j) {
-        return true;
+        result = true;
+        return result;
       }
     });
-    return false;
+    return result;
   };
 })();
