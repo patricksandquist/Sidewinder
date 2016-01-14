@@ -16,4 +16,7 @@ Sidewinder is Snake with a big "twist"! Written in Javascript, Sidewinder takes 
 - Changing interval durations simulates different movements speeds
 - Delayed callbacks and CSS transitions create a difficult and surprising twist for players
 
+## License
+Sidewinder is released under the [MIT License](http://www.opensource.org/licenses/MIT).
+
 [logo]: ./images/logo_small.png
