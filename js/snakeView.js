@@ -113,7 +113,7 @@
     if (!this.started) {
       $h2.replaceWith("<h2>Press any arrow key to begin!</h2>");
     } else if (this.paused) {
-      $h2.replaceWith("<h2>Paused. Press (P) to resume</h2>");
+      $h2.replaceWith("<h2>Paused.</h2>");
     } else {
       $h2.replaceWith("<h2>" + this.board.snake.score + "</h2>");
     }
